@@ -39,7 +39,6 @@ test.describe('Busca + network mocking', () => {
     await page.goto('/search');
     await expect(page.getByText('Buscar')).toBeVisible();
 
-    // ✍️ sua vez
   });
 
   // ── Teste 3 · 🟢 fácil ──────────────────────────────────────────────────────
