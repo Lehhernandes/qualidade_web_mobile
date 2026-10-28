@@ -8,7 +8,6 @@
 //           FÁCIL = arrange/act prontos, você escreve o expect
 //           🔴 DESAFIO = você escreve o teste inteiro
 // ─────────────────────────────────────────────────────────────────────────────
-
 import { useAuthStore } from '@/store/authStore';
 
 describe('authStore', () => {
@@ -22,6 +21,9 @@ describe('authStore', () => {
 
     // TODO: expect(ok).toBe(true)
     // TODO: verifique isAuthenticated === true e email === 'aluno@puc.br'
+    expect(ok).toBe(true);
+    expect(useAuthStore.getState().isAuthenticated).toBe(true);
+    expect(useAuthStore.getState().email).toBe('aluno@puc.br');
   });
 
   // 🧑‍💻 2. FÁCIL — email inválido
@@ -30,20 +32,40 @@ describe('authStore', () => {
 
     // TODO: expect(ok).toBe(false)
     // TODO: isAuthenticated continua false e email continua null
+    expect(ok).toBe(false);
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().email).toBeNull();
   });
 
   // 🧑‍💻 3. 🔴 DESAFIO — senha curta
   it('3. senha com menos de 4 caracteres NÃO autentica', () => {
     // TODO: tente login('aluno@puc.br', '123') e verifique a recusa completa
+    const ok = useAuthStore.getState().login('aluno@puc.br', '123');
+
+    expect(ok).toBe(false);
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().email).toBeNull();
   });
 
   // 🧑‍💻 4. 🔴 DESAFIO — logout
   it('4. logout limpa a sessão', () => {
     // TODO: faça login válido, chame logout(), verifique isAuthenticated e email
+    const { login, logout } = useAuthStore.getState();
+
+    login('aluno@puc.br', '1234');
+    logout();
+
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().email).toBeNull();
   });
 
   // 🧑‍💻 5. 🔴 DESAFIO — borda: senha só de espaços
   it('5. senha "     " (espaços) NÃO autentica', () => {
     // TODO: a regra usa password.trim() — prove que espaços não passam
+    const ok = useAuthStore.getState().login('aluno@puc.br', '     ');
+
+    expect(ok).toBe(false);
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    expect(useAuthStore.getState().email).toBeNull();
   });
 });
