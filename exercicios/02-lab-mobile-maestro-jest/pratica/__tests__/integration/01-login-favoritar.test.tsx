@@ -74,15 +74,11 @@ describe('integração — login e favoritar', () => {
     fireEvent.press(screen.getByTestId(testIDs.movieCard.heart(603)), {
       stopPropagation: jest.fn(),
     });
-
-    // TODO: verifique no store: useFavoritesStore.getState().isFavorite(603) === true
     expect(useFavoritesStore.getState().isFavorite(603)).toBe(true);
   });
 
   // 🧑‍💻 3. 🔴 DESAFIO — credencial inválida não navega
   it('3. login inválido mantém a tela de Login', async () => {
-    // TODO: renderApp(), preencha email SEM @ e senha curta, press no submit
-    // TODO: a tela de login continua na tela (queryByTestId(movielist.screen) === null)
     renderApp();
 
     fireEvent.changeText(screen.getByTestId(testIDs.login.emailInput),'aluno.puc.br',);
